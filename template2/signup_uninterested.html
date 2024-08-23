@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Select Uninterested Topics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Topics You're Not Interested In</h1>
+        <form method="POST" action="/signup-uninterested">
+            <label><input type="checkbox" name="topics" value="fashion"> Fashion</label>
+            <label><input type="checkbox" name="topics" value="health"> Health</label>
+            <label><input type="checkbox" name="topics" value="travel"> Travel</label>
+            <label><input type="checkbox" name="topics" value="music"> Music</label>
+            <label><input type="checkbox" name="topics" value="movies"> Movies</label>
+            <label><input type="checkbox" name="topics" value="technology"> Technology</label>
+            <label><input type="checkbox" name="topics" value="food"> Food</label>
+            <label><input type="checkbox" name="topics" value="sports"> Sports</label>
+            <label><input type="checkbox" name="topics" value="art"> Art</label>
+            <label><input type="checkbox" name="topics" value="science"> Science</label>
+            <label><input type="checkbox" name="topics" value="gaming"> Gaming</label>
+            <label><input type="checkbox" name="topics" value="fitness"> Fitness</label>
+            <label><input type="checkbox" name="topics" value="nature"> Nature</label>
+            <label><input type="checkbox" name="topics" value="books"> Books</label>
+            <label><input type="checkbox" name="topics" value="photography"> Photography</label>
+            <label><input type="checkbox" name="topics" value="history"> History</label>
+            <label><input type="checkbox" name="topics" value="cars"> Cars</label>
+            <label><input type="checkbox" name="topics" value="news"> News</label>
+            <label><input type="checkbox" name="topics" value="diy"> DIY & Crafts</label>
+            <label><input type="checkbox" name="topics" value="pets"> Pets</label>
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const maxAllowed = 5;
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkedCheckboxes.length > maxAllowed) {
+                    alert('You can only select up to ' + maxAllowed + ' topics.');
+                    this.checked = false;
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
