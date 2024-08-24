@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,78 +20,94 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
         }
         h1 {
-            text-align: center;
+            color: #333;
             margin-bottom: 20px;
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
+        p {
+            color: #666;
+            margin-bottom: 20px;
         }
-        button {
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .topics-grid label {
             display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            color: white;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .topics-grid label:hover {
+            background-color: #e0e0e0;
+        }
+        .topics-grid input {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
             background-color: #007bff;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
+        .submit-btn:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Select Topics You're Not Interested In</h1>
-        <form method="POST" action="/signup-uninterested">
-            <label><input type="checkbox" name="topics" value="fashion"> Fashion</label>
-            <label><input type="checkbox" name="topics" value="health"> Health</label>
-            <label><input type="checkbox" name="topics" value="travel"> Travel</label>
-            <label><input type="checkbox" name="topics" value="music"> Music</label>
-            <label><input type="checkbox" name="topics" value="movies"> Movies</label>
-            <label><input type="checkbox" name="topics" value="technology"> Technology</label>
-            <label><input type="checkbox" name="topics" value="food"> Food</label>
-            <label><input type="checkbox" name="topics" value="sports"> Sports</label>
-            <label><input type="checkbox" name="topics" value="art"> Art</label>
-            <label><input type="checkbox" name="topics" value="science"> Science</label>
-            <label><input type="checkbox" name="topics" value="gaming"> Gaming</label>
-            <label><input type="checkbox" name="topics" value="fitness"> Fitness</label>
-            <label><input type="checkbox" name="topics" value="nature"> Nature</label>
-            <label><input type="checkbox" name="topics" value="books"> Books</label>
-            <label><input type="checkbox" name="topics" value="photography"> Photography</label>
-            <label><input type="checkbox" name="topics" value="history"> History</label>
-            <label><input type="checkbox" name="topics" value="cars"> Cars</label>
-            <label><input type="checkbox" name="topics" value="news"> News</label>
-            <label><input type="checkbox" name="topics" value="diy"> DIY & Crafts</label>
-            <label><input type="checkbox" name="topics" value="pets"> Pets</label>
-            <button type="submit">Continue</button>
+        <h1>Welcome! Tell Us What You're Not Interested In</h1>
+        <p>Please select 5 topics that you are not interested in from the list below.</p>
+        
+        <form id="topic-form" action="/signup-uninterested" method="POST">
+            <div class="topics-grid">
+                <label><input type="checkbox" name="topics" value="fashion"> Fashion</label>
+                <label><input type="checkbox" name="topics" value="health"> Health</label>
+                <label><input type="checkbox" name="topics" value="travel"> Travel</label>
+                <label><input type="checkbox" name="topics" value="music"> Music</label>
+                <label><input type="checkbox" name="topics" value="movies"> Movies</label>
+                <label><input type="checkbox" name="topics" value="technology"> Technology</label>
+                <label><input type="checkbox" name="topics" value="food"> Food</label>
+                <label><input type="checkbox" name="topics" value="sports"> Sports</label>
+                <label><input type="checkbox" name="topics" value="art"> Art</label>
+                <label><input type="checkbox" name="topics" value="science"> Science</label>
+                <label><input type="checkbox" name="topics" value="gaming"> Gaming</label>
+                <label><input type="checkbox" name="topics" value="fitness"> Fitness</label>
+                <label><input type="checkbox" name="topics" value="nature"> Nature</label>
+                <label><input type="checkbox" name="topics" value="books"> Books</label>
+                <label><input type="checkbox" name="topics" value="photography"> Photography</label>
+                <label><input type="checkbox" name="topics" value="history"> History</label>
+                <label><input type="checkbox" name="topics" value="cars"> Cars</label>
+                <label><input type="checkbox" name="topics" value="news"> News</label>
+                <label><input type="checkbox" name="topics" value="diy"> DIY & Crafts</label>
+                <label><input type="checkbox" name="topics" value="pets"> Pets</label>
+            </div>
+            <button type="submit" class="submit-btn">Continue</button>
         </form>
-    </div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const maxAllowed = 5;
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                if (checkedCheckboxes.length > maxAllowed) {
-                    alert('You can only select up to ' + maxAllowed + ' topics.');
-                    this.checked = false;
+        <script>
+            document.getElementById('topic-form').addEventListener('submit', function(e) {
+                var checkedTopics = document.querySelectorAll('input[name="topics"]:checked');
+                if (checkedTopics.length !== 5) {
+                    e.preventDefault();
+                    alert("Please select exactly 5 topics.");
                 }
             });
-        });
-    });
-    </script>
+        </script>
+    </div>
 </body>
 </html>
