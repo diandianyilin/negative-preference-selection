@@ -18,7 +18,7 @@ def signup_uninterested():
             return redirect(url_for('filtered_content_interested', topics=interested_topics))
         else:
             return "Please select exactly 5 topics.", 400
-    return render_template('signup_uninterested.html')
+    return render_template('template2/signup_uninterested.html')
 
 @app.route('/filtered-content-interested')
 def filtered_content_interested():
